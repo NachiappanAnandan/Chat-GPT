@@ -8,6 +8,13 @@
 </head>
 <body>
     <main>
+         <div class="prompt-result">
+            {% for p in chat %}
+              <p> {{ chat[p]["chat"] }} </p>
+              <p> {{ chat[p]["timestamp"] }} </p>
+                <br>
+            {% endfor %}
+        </div>
         <form class="form" method="post" action="{{url_for('chat')}}" enctype=multipart/form-data>
             <label class="prompt-label" for="prompt">PROMPT</label>
             <textarea class="prompt-text-area" name="message" id="prommpt"></textarea>
@@ -35,14 +42,6 @@
                 </label>
             </div>
         </form>
-
-        <div class="prompt-result">
-            {% for p in chat %}
-              <h2> {{ chat[p]["chat"] }} </h2>
-              <h3> {{ chat[p]["timestamp"] }} </h3>
-                <br>
-            {% endfor %}
-        </div>
     </main>
 </body>
 </html>

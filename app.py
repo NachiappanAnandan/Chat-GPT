@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, request
 
 from openai import OpenAI
@@ -5,13 +6,20 @@ import os
 from dotenv import load_dotenv
 from firebase import firebase
 from datetime import datetime
-import docx2txt
+from docx2txt import docx2txt
+
 
 load_dotenv()
 
-client = OpenAI(
+"https://alchemists8203364901.openai.azure.com/openai/deployments/gpt-4o/models/gpt-4o/2024-02-15-preview"
+
+import os
+from openai import AzureOpenAI
+
+client = AzureOpenAI(
     api_key=os.environ["OPENAI_API_KEY"],
-    base_url="https://api.aimlapi.com",
+    api_version=os.environ["API_VERSION"],
+    azure_endpoint=os.environ["AZURE_ENDPOINT"]
 )
 
 # First param pass the firebase database link
@@ -34,10 +42,9 @@ def chat():
     convert_to = request.form['options']
     prompt = f"USER: {user_input}\nChatbot: "
     userResponseData = {"timestamp": datetime.utcnow(), "chat": user_input, "convert_to": convert_to}
-    firebase.post("/chatHistory", userResponseData)
-
+    # firebase.post("/chatHistory", userResponseData)
     response = client.chat.completions.create(
-        model="mistralai/Mistral-7B-Instruct-v0.2",
+        model="gpt-4o",
         messages=[
             {
                 "role": "user",

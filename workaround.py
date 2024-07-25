@@ -1,26 +1,46 @@
-# import openai
-#
-# # Set your OpenAI API key
-# openai.api_key = 'your-api-key-here'
-#
-# # Define a function to create a chat completion
-# def create_chat_completion(messages):
-#     response = openai.ChatCompletion.create(
-#         model="gpt-4",  # or "gpt-3.5-turbo", depending on your needs
-#         messages=messages,
-#         max_tokens=100
-#     )
-#     return response.choices[0].message['content'].strip()
-#
-# # Define the conversation history
-# messages = [
-#     {"role": "system", "content": "You are a helpful assistant."},
-#     {"role": "user", "content": "Write a poem about the sea."}
-# ]
-#
-# # Generate and print the chat completion
-# output = create_chat_completion(messages)
-# print(output)
+import os
 
 
+# Payload for the request
+payload = {
+  "messages": [
+    {
+      "role": "system",
+      "content": [
+        {
+          "type": "text",
+          "text": "You are an AI assistant that helps people find information."
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "Hi da"
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "Hello! How can I assist you today?"
+        }
+      ]
+    }
+  ],
+  "temperature": 0.7,
+  "top_p": 0.95,
+  "max_tokens": 800
+}
 
+GPT4V_ENDPOINT = "https://alchemists8203364901.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-02-15-preview"
+
+# Send request
+
+
+# Handle the response as needed (e.g., print or process)
+print(response.json())
