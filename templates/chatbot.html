@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet"type="text/css" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+    <main>
+        <form class="form" method="post" action="{{url_for('chat')}}" enctype=multipart/form-data>
+            <label class="prompt-label" for="prompt">PROMPT</label>
+            <textarea class="prompt-text-area" name="message" id="prommpt"></textarea>
+            <div class="button-container">
+                <button class="submit-prompt" type="submit">
+                    Submit
+                </button>
+                <label class="prompt-file-upload-label" for="prompt-file-upload" >
+                    <input class="prompt-file-upload" id="prompt-file-upload" type="file" name="prompt-file">
+                    custom upload
+                </label>
+            </div>
+            <div class="options-container">
+                <label class="radio-button-label label-email" checked="checked" for="options" >
+                    <input class="radio-button-prompt email-radio-button" type="radio" name="options" id="email" value="email">
+                    Email
+                </label>
+                <label class="radio-button-label label-linkedin" for="options" >
+                    <input class="radio-button-prompt email-radio-button" type="radio" name="options" id="linkedin" value="linkedin" >
+                    Linked In
+                </label>
+                <label class=" radio-button-label label-twitter" for="options" >
+                    <input class=" radio-button-prompt email-radio-button" type="radio" name="options" id="twitter" value="twitter">
+                    Twitter X
+                </label>
+            </div>
+        </form>
+
+        <div class="prompt-result">
+            {% for p in chat %}
+              <h2> {{ chat[p]["chat"] }} </h2>
+              <h3> {{ chat[p]["timestamp"] }} </h3>
+                <br>
+            {% endfor %}
+        </div>
+    </main>
+</body>
+</html>

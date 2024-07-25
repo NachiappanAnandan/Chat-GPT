@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: "Montserrat", sans-serif;
+    background-color: #F7F7F7;
+    height: 100vh;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    padding: 40px 10%;
+    height: 100%;
+}
+.form{
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.prompt-label{
+    color: #111111;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.prompt-text-area{
+    width: 95%;
+    flex: 1;
+    border-radius: 20px;
+    padding: 20px;
+    font-size: 18px;
+    outline: none;
+    font-weight: 400;
+    border: 2px black solid;
+    resize: none;
+}
+.button-container{
+    display: flex;
+    gap: 20px;
+}
+.prompt-file-upload{
+    display: none;
+}
+.prompt-file-upload-label{
+    background-color: #32174D;
+    border: 2.5px #32174D solid;
+    text-align: center;
+    border-radius: 10px;
+    padding: 15px 30px;
+    width: 250px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+}
+.prompt-file-upload-label:hover{
+    background-color: #fff;
+    color: #32174D;
+    cursor: pointer;
+}
+
+.radio-clear{
+    padding:5px 10px;
+    background-color: #848482;
+    border:2px #848482 solid ;
+    outline: none;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.radio-clear:hover{
+    background-color: #fff;
+    color: #848482;
+}
+
+.submit-prompt{
+    background-color: #2E8B57;
+    border: 2.5px #2E8B57 solid;
+    text-align: center;
+    border-radius: 10px;
+    padding: 15px 30px;
+    width: 250px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.submit-prompt:hover{
+    background-color: #fff;
+    color: #2E8B57;
+    cursor: pointer;
+}
+
+.options-container{
+    /* background-color: black; */
+    width: 95%;
+    display: flex;
+    gap: 20px;
+}
+.radio-button-label{
+    font-size: 18px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.prompt-result{
+    height: 50%;
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 20px;
+    border: 2px solid black;
+    overflow-y: scroll;
+    padding: 20px;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+}
