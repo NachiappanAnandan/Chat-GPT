@@ -44,7 +44,8 @@
                     <h2>Chat History</h2>
                     <ul>
                         {% for chat_entry in chat %}
-                        <li><strong>{{ chat_entry.timestamp }}:</strong> {{ chat_entry.chat }}</li>
+                        <li><strong>{{ chat_entry.prompt.timestamp }}:</strong> {{ chat_entry.prompt.chat }}</li>
+                        <li><strong>{{ chat_entry.response.timestamp }}:</strong> {{ chat_entry.response.chat }}</li>
                         {% endfor %}
                     </ul>
                     <a href="/">Back</a>

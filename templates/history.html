@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Version Search</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='history.css') }}">
+</head>
+<body>
+    <h1>Search Versions</h1>
+    <form action="{{url_for('get_versions')}}" method="get">
+        <label for="keyword">Enter keyword:</label>
+        <input type="text" id="keyword" name="keyword">
+        <button type="submit">Search</button>
+    </form>
+    <div id="results"></div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('form').on('submit', function(e) {
+                e.preventDefault();
+                var keyword = $('#keyword').val();
+                $.getJSON('/get_versions', { keyword: keyword }, function(data) {
+                    $('#results').empty();
+                    if (data.length === 0) {
+                        $('#results').append('<p>No versions found.</p>');
+                    } else {
+                        for (var i = 0; i < data.length; i++) {
+                            var version = data[i];
+                            $('#results').append(`<p>Version ${version.version}: ${version.chat}</p>`);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

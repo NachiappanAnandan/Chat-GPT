@@ -14,27 +14,29 @@
 
 <body>
     <main>
-        <div>
-            <h2>Welcome, {{ user }}</h2> <span><a href="/logout">Logout</a></span>
-            <div class="tabs-container">
+        <h2 class="welcome-user">Welcome, <span class="username">{{ user }}</span></h2> <span><a href="/logout">Logout</a></span>
+        <div class="tabs-container">
                 <div class="tab-element">
                     Tab 1
                 </div>
                 <div class="tab-element">
                     Tab 2
                 </div>
-            </div>
-            <form method="POST" action="/chat" enctype="multipart/form-data">
-                <label for="message">Message:</label>
-                <input type="text" id="message" name="message"><br><br>
-                <label for="prompt-file">Upload DOCX file:</label>
-                <input type="file" id="prompt-file" name="prompt-file"><br><br>
-                <label for="options">Convert to:</label>
-                <input type="text" id="options" name="options"><br><br>
-                <button type="submit">Send</button>
-            </form>
+                <a href="{{url_for('history')}}" class="history">
+                    
+                        Tab 3
+                </a>
         </div>
-        <form class="form" method="post" action="{{url_for('chat')}}" enctype=multipart/form-data>
+        <form class="form-container" data-tab-index = "0" method="POST" action="/chat" enctype="multipart/form-data">
+            <label for="message">Message:</label>
+            <input type="text" id="message" name="prompt"><br><br>
+            <label for="prompt-file">Upload DOCX file:</label>
+            <input type="file" id="prompt-file" name="prompt-file"><br><br>
+            <label for="options">Convert to:</label>
+            <input type="text" id="options" name="options"><br><br>
+            <button type="submit">Send</button>
+        </form>
+        <form class="form-container" data-tab-index = "1"  method="post" action="{{url_for('chat')}}" enctype=multipart/form-data>
             <label class="prompt-label" for="message">PROMPT</label>
             <textarea class="prompt-text-area" name="prompt" id="prompt"></textarea>
             <div class="button-container">
@@ -68,8 +70,26 @@
 </body>
 
 <script>
+    let TAB_ELEMENT = ".tabs-container .tab-element"
     $(document).ready(function() {
-        console.log("Jquery loading....")
+        function hildeAllElements(){
+            $(".form-container").each(function(){
+                $(this).hide();
+            })
+        }
+        function showElement(el){
+            $(el).show()
+        }
+
+        $(TAB_ELEMENT).each(function(compIndex){
+            $(this).on("click", function(){
+                hildeAllElements();
+               let element = $(".form-container").get(compIndex)
+               showElement(element)
+            })
+        })
+        hildeAllElements();
+        showElement($(".form-container").get(0))
     });
 
 </script>

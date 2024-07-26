@@ -27,7 +27,20 @@ main {
     padding: 10px;
     display: flex;
     gap: 10px;
-    width: 30%;
+}
+a{
+    text-decoration: none;
+}
+.history{
+    background-color: #9b7714;
+    border: 2px #9b7714 solid;
+    color: #fff;
+    padding: 10px 20px;
+    cursor:pointer;
+}
+.history:hover{
+    background-color: white;
+    color: #9b7714;
 }
 .tab-element{
     background-color: #9b7714;

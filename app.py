@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+import requests
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import os
 from openai import AzureOpenAI
 from dotenv import load_dotenv
@@ -30,6 +31,11 @@ def home():
         return render_template("index.html", user=session["user"])
     return redirect(url_for("login"))
 
+@app.route("/history")
+def history():
+    if "user" in session:
+        return render_template("history.html", user=session["user"])
+    return redirect(url_for("login"))
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -81,7 +87,7 @@ def chat():
 
     user = session["user"]
     user_chat_history = firebase.get(f'/users/{user}/chatHistory', None) or []
-    user_chat_history.append(userResponseData)
+
 
     response = client.chat.completions.create(
         model="gpt-4o",
@@ -95,12 +101,39 @@ def chat():
 
     bot_response = response.choices[0].message.content
     aiResponseData = {"timestamp": datetime.utcnow().isoformat(), "chat": bot_response}
-    user_chat_history.append(aiResponseData)
+    singleChatHistory = {
+        "prompt": userResponseData,
+        "response":aiResponseData
+    }
+    user_chat_history.append(singleChatHistory)
 
     firebase.put(f'/users/{user}', 'chatHistory', user_chat_history)
     result = firebase.get(f'/users/{user}/chatHistory', None)
+    print(result)
     return render_template("chatbot.html", chat=result)
 
+
+@app.route('/get_versions', methods=['GET'])
+def get_versions():
+    user = session["user"]
+    keyword = request.args.get('keyword')
+    response = firebase.get(f'/users/{user}/chatHistory',None)
+    try:
+        chat_history = response
+        versions = []
+        for item in chat_history:
+            items=item['response']
+            if keyword.lower() in items['chat'].lower():
+                versions.append({
+                    'version': f"v{len(versions) + 1}",
+                    'timestamp': items['timestamp'],
+                    'chat': items['chat']
+                })
+        return jsonify(versions)
+    except requests.exceptions.RequestException as e:
+        return jsonify({"error": "Error fetching data from Firebase Realtime Database"}), 500
+    except requests.exceptions.JSONDecodeError as e:
+        return jsonify({"error": "Invalid JSON response from Firebase Realtime Database"}), 400
 
 if __name__ == "__main__":
     app.run(debug=True)
