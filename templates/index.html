@@ -15,8 +15,15 @@
 <body>
     <main>
         <div>
-            <h2>Welcome, {{ user }}</h2>
-            <a href="/logout">Logout</a>
+            <h2>Welcome, {{ user }}</h2> <span><a href="/logout">Logout</a></span>
+            <div class="tabs-container">
+                <div class="tab-element">
+                    Tab 1
+                </div>
+                <div class="tab-element">
+                    Tab 2
+                </div>
+            </div>
             <form method="POST" action="/chat" enctype="multipart/form-data">
                 <label for="message">Message:</label>
                 <input type="text" id="message" name="message"><br><br>
@@ -29,7 +36,7 @@
         </div>
         <form class="form" method="post" action="{{url_for('chat')}}" enctype=multipart/form-data>
             <label class="prompt-label" for="message">PROMPT</label>
-            <textarea class="prompt-text-area" name="Prompt" id="prompt"></textarea>
+            <textarea class="prompt-text-area" name="prompt" id="prompt"></textarea>
             <div class="button-container">
                 <button class="submit-prompt" type="submit">
                     Submit

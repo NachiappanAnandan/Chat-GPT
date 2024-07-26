@@ -23,6 +23,25 @@ main {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.tabs-container{
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+    width: 30%;
+}
+.tab-element{
+    background-color: #9b7714;
+    border: 2px #9b7714 solid;
+    color: #fff;
+    padding: 10px 20px;
+    cursor:pointer;
+}
+.tab-element:hover{
+    background-color: white;
+    color: #9b7714;
+}
+
+
 /* Form Styling */
 form {
     margin-top: 20px;

@@ -71,7 +71,7 @@ def chat():
     if "user" not in session:
         return redirect(url_for("login"))
 
-    user_input = request.form["message"]
+    user_input = request.form["prompt"]
     if user_input == "":
         file = request.files['prompt-file']
         user_input = docx2txt.process(file)
