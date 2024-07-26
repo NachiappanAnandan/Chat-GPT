@@ -1,0 +1,94 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Source Sans Pro", Verdana, sans-serif;
+}
+
+/* Background and Container Styling */
+.signupPageContainer {
+    height: 91.2vh;
+    width: 100%;
+    background-image: url("../../Assets/sindel-background.png"); /* Ensure path is correct */
+    background-size: cover;
+    background-position: 100% 0%;
+    position: relative;
+}
+
+/* Form Container Styling */
+.signupFormContainer {
+    position: absolute;
+    width: 27%;
+    top: 10rem;
+    right: 6rem;
+    padding: 7.5rem 2.8rem 4rem;
+    background-color: rgba(0, 0, 0, 0.9);
+    border-top: 5px solid #9b7714;
+    color: #fff;
+    border-radius: 8px;
+}
+
+/* Form Title Styling */
+.formTitle {
+    font-size: 2.5rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+}
+
+/* Form Description Styling */
+.formDescription {
+    font-size: 1rem;
+    text-align: justify;
+    color: #838485;
+    padding-right: 40px;
+    line-height: 1.75;
+    margin-bottom: 2rem;
+}
+
+/* Form Element Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-weight: 600;
+    color: #ccc;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Links */
+a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
+}

@@ -1,129 +1,140 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-
-*{
+/* Basic Reset */
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Source Sans Pro",Verdana,sans-serif;
 }
 
-body{
-    font-family: "Montserrat", sans-serif;
-    background-color: #F7F7F7;
-    height: 100vh;
+/* Body Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
 }
 
-main{
-    display: flex;
-    flex-direction: column;
-    padding: 40px 10%;
-    height: 100%;
-}
-.form{
-    height: 40%;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.prompt-label{
-    color: #111111;
-    font-size: 22px;
-    font-weight: 600;
-}
-
-.prompt-text-area{
-    width: 95%;
-    flex: 1;
-    border-radius: 20px;
+/* Main Container */
+main {
+    max-width: 900px;
+    margin: 20px auto;
     padding: 20px;
-    font-size: 18px;
-    outline: none;
-    font-weight: 400;
-    border: 2px black solid;
-    resize: none;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.button-container{
-    display: flex;
-    gap: 20px;
+
+/* Form Styling */
+form {
+    margin-top: 20px;
 }
-.prompt-file-upload{
-    display: none;
-}
-.prompt-file-upload-label{
-    background-color: #32174D;
-    border: 2.5px #32174D solid;
-    text-align: center;
-    border-radius: 10px;
-    padding: 15px 30px;
-    width: 250px;
-    font-size: 18px;
+
+label {
+    display: block;
+    margin-bottom: 8px;
     font-weight: 600;
-    color: #fff;
-}
-.prompt-file-upload-label:hover{
-    background-color: #fff;
-    color: #32174D;
-    cursor: pointer;
+    color: #444;
 }
 
-.radio-clear{
-    padding:5px 10px;
-    background-color: #848482;
-    border:2px #848482 solid ;
-    outline: none;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 500;
-    border-radius: 6px;
-    cursor: pointer;
-}
-.radio-clear:hover{
-    background-color: #fff;
-    color: #848482;
-}
-
-.submit-prompt{
-    background-color: #2E8B57;
-    border: 2.5px #2E8B57 solid;
-    text-align: center;
-    border-radius: 10px;
-    padding: 15px 30px;
-    width: 250px;
-    font-size: 18px;
-    font-weight: 600;
-    color: #fff;
-}
-
-.submit-prompt:hover{
-    background-color: #fff;
-    color: #2E8B57;
-    cursor: pointer;
-}
-
-.options-container{
-    /* background-color: black; */
-    width: 95%;
-    display: flex;
-    gap: 20px;
-}
-.radio-button-label{
-    font-size: 18px;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-}
-
-.prompt-result{
-    height: 50%;
+input[type="text"],
+input[type="password"],
+textarea,
+input[type="file"] {
     width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    font-size: 16px;
+}
+
+input[type="file"] {
+    padding: 0;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Radio Buttons */
+.options-container {
+    margin: 20px 0;
+}
+
+.radio-button-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #333;
+}
+
+.radio-button-prompt {
+    margin-right: 8px;
+}
+
+/* Chat History */
+.prompt-result {
+    margin-top: 20px;
+}
+
+.prompt-result ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.prompt-result li {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+    font-size: 16px;
+}
+
+.prompt-result strong {
+    display: block;
+    color: #007bff;
+}
+
+/* Navigation Links */
+a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Headers and Text */
+h1, h2, h3 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+p {
     margin-top: 10px;
-    border-radius: 20px;
-    border: 2px solid black;
-    overflow-y: scroll;
-    padding: 20px;
-    font-size: 14px;
-    line-height: 20px;
-    font-weight: 400;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    main {
+        padding: 15px;
+    }
+
+    button {
+        width: 100%;
+    }
 }
