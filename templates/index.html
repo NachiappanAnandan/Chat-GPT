@@ -7,6 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
 </head>
@@ -28,7 +29,7 @@
         </div>
         <form class="form" method="post" action="{{url_for('chat')}}" enctype=multipart/form-data>
             <label class="prompt-label" for="message">PROMPT</label>
-            <textarea class="prompt-text-area" name="message" id="prompt"></textarea>
+            <textarea class="prompt-text-area" name="Prompt" id="prompt"></textarea>
             <div class="button-container">
                 <button class="submit-prompt" type="submit">
                     Submit
@@ -39,8 +40,8 @@
                 </label>
             </div>
             <div class="options-container">
-                <label class="radio-button-label label-email" checked="checked" for="options">
-                    <input class="radio-button-prompt email-radio-button" type="radio" name="options" id="email"
+                <label class="radio-button-label label-email"  for="options">
+                    <input class="radio-button-prompt email-radio-button" checked="checked" type="radio" name="options" id="email"
                         value="email">
                     Email
                 </label>
@@ -58,5 +59,12 @@
         </form>
     </main>
 </body>
+
+<script>
+    $(document).ready(function() {
+        console.log("Jquery loading....")
+    });
+
+</script>
 
 </html>

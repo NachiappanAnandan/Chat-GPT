@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-from openai import OpenAI
 import os
+from openai import AzureOpenAI
 from dotenv import load_dotenv
 from firebase import firebase
 from datetime import datetime
@@ -8,10 +8,8 @@ from docx2txt import docx2txt
 
 load_dotenv()
 
-"https://alchemists8203364901.openai.azure.com/openai/deployments/gpt-4o/models/gpt-4o/2024-02-15-preview"
 
-import os
-from openai import AzureOpenAI
+
 
 client = AzureOpenAI(
     api_key=os.environ["OPENAI_API_KEY"],
