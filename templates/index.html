@@ -5,93 +5,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='home.css')}}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <main>
-        <h2 class="welcome-user">Welcome, <span class="username">{{ user }}</span></h2> <span><a href="/logout">Logout</a></span>
-        <div class="tabs-container">
-                <div class="tab-element">
-                    Tab 1
+        <div>
+            <div class="header">
+                <div class="tabs-container">
+                    <div class="tab-element" id="tab1">
+                        Tab 1
+                    </div>
+                    <div class="tab-element" id="tab2">
+                        Tab 2
+                    </div>
+                    <a class="history" href="{{url_for('history')}}" id="tab2">
+                        Version Search
+                    </a>
                 </div>
-                <div class="tab-element">
-                    Tab 2
+                <div class="user-container">
+                <h2>Welcome, <span class="userName">{{ user }}</span></h2> <span><a href="/logout">Logout</a></span>
                 </div>
-                <a href="{{url_for('history')}}" class="history">
-                    
-                        Tab 3
-                </a>
+            </div>
+            <div class="form-container">
+                <form id="form1" method="POST" action="/chat" enctype="multipart/form-data">
+                    <label for="message1">MESSAGE</label>
+                    <textarea class="message-text-area" name="prompt" id="message1"></textarea>
+                    <label for="prompt-file1">Upload DOCX file:</label>
+                    <input type="file" id="prompt-file1" name="prompt-file"><br><br>
+                    <label for="options1">Convert to:</label>
+                    <input type="text" id="options1" name="options"><br><br>
+                    <button type="submit">Send</button>
+                </form>
+                <form id="form2" class="hidden" method="post" action="{{url_for('chat')}}" enctype=multipart/form-data>
+                    <label class="prompt-label" for="message2">PROMPT</label>
+                    <textarea class="prompt-text-area" name="prompt" id="message2"></textarea>
+                    <div class="options-container">
+                        <label class="radio-button-label label-email" for="options2">
+                            <input class="radio-button-prompt email-radio-button" checked="checked" type="radio" name="options"
+                                id="email2" value="email">
+                            Email
+                        </label>
+                        <label class="radio-button-label label-linkedin" for="options2">
+                            <input class="radio-button-prompt email-radio-button" type="radio" name="options" id="linkedin2"
+                                value="linkedin">
+                            Linked In
+                        </label>
+                        <label class="radio-button-label label-twitter" for="options2">
+                            <input class="radio-button-prompt email-radio-button" type="radio" name="options" id="twitter2"
+                                value="twitter">
+                            Twitter X
+                        </label>
+                    </div>
+                    <label for="prompt-file2">Upload DOCX file:</label>
+                    <input class="prompt-file-upload" id="prompt-file-upload2" type="file" name="prompt-file">
+                    <div class="button-container">
+                        <button class="submit-prompt" type="submit">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <form class="form-container" data-tab-index = "0" method="POST" action="/chat" enctype="multipart/form-data">
-            <label for="message">Message:</label>
-            <input type="text" id="message" name="prompt"><br><br>
-            <label for="prompt-file">Upload DOCX file:</label>
-            <input type="file" id="prompt-file" name="prompt-file"><br><br>
-            <label for="options">Convert to:</label>
-            <input type="text" id="options" name="options"><br><br>
-            <button type="submit">Send</button>
-        </form>
-        <form class="form-container" data-tab-index = "1"  method="post" action="{{url_for('chat')}}" enctype=multipart/form-data>
-            <label class="prompt-label" for="message">PROMPT</label>
-            <textarea class="prompt-text-area" name="prompt" id="prompt"></textarea>
-            <div class="button-container">
-                <button class="submit-prompt" type="submit">
-                    Submit
-                </button>
-                <label class="prompt-file-upload-label" for="prompt-file-upload">
-                    <input class="prompt-file-upload" id="prompt-file-upload" type="file" name="prompt-file">
-                    custom upload
-                </label>
-            </div>
-            <div class="options-container">
-                <label class="radio-button-label label-email"  for="options">
-                    <input class="radio-button-prompt email-radio-button" checked="checked" type="radio" name="options" id="email"
-                        value="email">
-                    Email
-                </label>
-                <label class="radio-button-label label-linkedin" for="options">
-                    <input class="radio-button-prompt email-radio-button" type="radio" name="options" id="linkedin"
-                        value="linkedin">
-                    Linked In
-                </label>
-                <label class=" radio-button-label label-twitter" for="options">
-                    <input class=" radio-button-prompt email-radio-button" type="radio" name="options" id="twitter"
-                        value="twitter">
-                    Twitter X
-                </label>
-            </div>
-        </form>
     </main>
+
+    <script src="{{url_for('static', filename='tabs.js')}}"></script>
 </body>
-
-<script>
-    let TAB_ELEMENT = ".tabs-container .tab-element"
-    $(document).ready(function() {
-        function hildeAllElements(){
-            $(".form-container").each(function(){
-                $(this).hide();
-            })
-        }
-        function showElement(el){
-            $(el).show()
-        }
-
-        $(TAB_ELEMENT).each(function(compIndex){
-            $(this).on("click", function(){
-                hildeAllElements();
-               let element = $(".form-container").get(compIndex)
-               showElement(element)
-            })
-        })
-        hildeAllElements();
-        showElement($(".form-container").get(0))
-    });
-
-</script>
-
 </html>

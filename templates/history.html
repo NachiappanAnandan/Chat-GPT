@@ -5,16 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Version Search</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='history.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <h1>Search Versions</h1>
-    <form action="{{url_for('get_versions')}}" method="get">
+    <div class="heading_container">
+        <h5 class="heading">Search Versions</h5>
+        <a class="back_to_home" href="{{ url_for('home') }}">
+            Back To Home
+        </a>
+    </div>
+    
+    <form action="{{ url_for('get_versions') }}" method="get">
         <label for="keyword">Enter keyword:</label>
-        <input type="text" id="keyword" name="keyword">
+        <div class="search-container">
+            <input type="text" id="keyword" name="keyword" placeholder="Type your keyword here...">
+            <button type="button" id="voice-btn"><i class="fas fa-microphone"></i></button>
+        </div>
         <button type="submit">Search</button>
     </form>
     <div id="results"></div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
         $(document).ready(function() {
             $('form').on('submit', function(e) {
@@ -25,14 +36,109 @@
                     if (data.length === 0) {
                         $('#results').append('<p>No versions found.</p>');
                     } else {
-                        for (var i = 0; i < data.length; i++) {
-                            var version = data[i];
-                            $('#results').append(`<p>Version ${version.version}: ${version.chat}</p>`);
-                        }
+                        data.forEach(function(version) {
+                            var chatBlock = $(`
+                                <div class="chat-block" data-chat="${version.chat}">
+                                    <div class="version-date">
+                                        <span class="version">Version ${version.version}</span>
+                                        <span class="date">${new Date(version.timestamp).toLocaleString()}</span>
+                                    </div>
+                                    <div class="chat">${version.chat}</div>
+                                    <div class="button-container">
+                                        <button class="copy-btn"><i class="fas fa-copy"></i> Copy</button>
+                                        <button class="export-btn"><i class="fas fa-file-pdf"></i> Export as PDF</button>
+                                        <button class="share-btn email-share"><i class="fas fa-share-alt"></i> Share via Email</button>
+                                    </div>
+                                    <div class="share-options" style="display: none;">
+                                        <a class="share-link email-share" href="#" target="_blank"><i class="fas fa-envelope"></i> Email</a>
+                                    </div>
+                                </div>
+                            `);
+                            $('#results').append(chatBlock);
+                        });
                     }
                 });
+            });
+
+            // Open chat in a new tab on click
+            $(document).on('click', '.chat-block', function() {
+                var chatContent = $(this).data('chat');
+                var newTab = window.open();
+                newTab.document.body.innerHTML = `<pre>${chatContent}</pre>`;
+            });
+
+            // Prevent button click from triggering the chat block click event
+            $(document).on('click', '.copy-btn, .export-btn, .share-btn', function(e) {
+                e.stopPropagation();
+            });
+
+            // Copy chat content to clipboard
+            $(document).on('click', '.copy-btn', function() {
+                var chatContent = $(this).siblings('.chat').text();
+                var tempInput = $('<input>');
+                $('body').append(tempInput);
+                tempInput.val(chatContent).select();
+                document.execCommand('copy');
+                tempInput.remove();
+                alert('Chat copied to clipboard');
+            });
+
+            // Export chat to PDF
+            $(document).on('click', '.export-btn', function() {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                let chatBlock = $(this).closest('.chat-block');
+                let version = chatBlock.find('.version').text();
+                let date = chatBlock.find('.date').text();
+                let chat = chatBlock.find('.chat').text();
+                doc.text(version, 10, 10);
+                doc.text(date, 10, 20);
+                doc.text(chat, 10, 30);
+                doc.save(`${version.replace(/\s+/g, '_')}.pdf`);
+            });
+
+            // Toggle share options
+            $(document).on('click', '.share-btn', function() {
+                // Close other share options
+                $('.share-options').not($(this).siblings('.share-options')).hide();
+                $(this).siblings('.share-options').toggle();
+            });
+
+            // Redirect to share links
+            $(document).on('click', '.email-share', function(e) {
+                e.preventDefault();
+                var chatContent = $(this).closest('.chat-block').data('chat');
+                var emailURL = `mailto:?subject=Check this chat&body=${encodeURIComponent(chatContent)}`;
+                window.open(emailURL, '_blank');
+            });
+
+            // Voice search functionality
+            const voiceBtn = document.getElementById('voice-btn');
+            const inputField = document.getElementById('keyword');
+
+            voiceBtn.addEventListener('click', () => {
+                if (!('webkitSpeechRecognition' in window)) {
+                    alert('Speech recognition is not supported in this browser.');
+                    return;
+                }
+
+                const recognition = new webkitSpeechRecognition();
+                recognition.lang = 'en-US';
+                recognition.continuous = false;
+                recognition.interimResults = false;
+
+                recognition.onresult = (event) => {
+                    inputField.value = event.results[0][0].transcript;
+                };
+
+                recognition.onerror = (event) => {
+                    console.error('Speech recognition error:', event.error);
+                };
+
+                recognition.start();
             });
         });
     </script>
 </body>
 </html>
+ 

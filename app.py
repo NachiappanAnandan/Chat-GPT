@@ -108,9 +108,8 @@ def chat():
     user_chat_history.append(singleChatHistory)
 
     firebase.put(f'/users/{user}', 'chatHistory', user_chat_history)
-    result = firebase.get(f'/users/{user}/chatHistory', None)
-    print(result)
-    return render_template("chatbot.html", chat=result)
+    previousresult = firebase.get(f'/users/{user}/chatHistory', None)
+    return render_template("chatbot.html", chat=previousresult)
 
 
 @app.route('/get_versions', methods=['GET'])

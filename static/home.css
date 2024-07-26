@@ -1,0 +1,178 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.userName{
+    text-transform: capitalize;
+}
+ 
+/* Body Styling */
+body {
+    font-family: 'Source Sans 3', sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+}
+ 
+/* Main Container */
+main {
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+ 
+/* Header Styling */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 20px 30px;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+ 
+.header h2 {
+    color: #ffffff;
+    margin: 0;
+}
+ 
+.header a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+ 
+.header a:hover {
+    color: #ffb700;
+    text-decoration: none;
+}
+ 
+.user-container{
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    gap: 20px;
+}
+ 
+/* Tabs Container Styling */
+.tabs-container {
+    display: flex;
+    gap: 15px;
+}
+ 
+.tab-element {
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.history{
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+}
+ 
+.tab-element:hover {
+    color: #e6e6e6;
+}
+.history:hover{
+    color: #e6e6e6;
+}
+/* Form Styling */
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 0px 0px 8px 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+ 
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    color: #333;
+}
+ 
+input[type="text"],
+input[type="password"],
+textarea,
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+}
+ 
+textarea {
+    resize:none;
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    min-height: 100px;
+    outline: none;
+}
+ 
+button {
+    outline: auto;
+    background-color: #150404;
+    color: #fff;
+    padding: 8px 18px;
+    border-radius: 8px;
+}
+ 
+button:hover {
+    background-color: grey;
+}
+ 
+/* Custom File Upload Label */
+.prompt-file-upload-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #007bff;
+    transition: color 0.3s ease;
+}
+ 
+.prompt-file-upload-label:hover {
+    color: #0056b3;
+}
+ 
+.prompt-file-upload {
+    margin-right: 10px;
+}
+ 
+/* Options Container */
+.options-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+ 
+.radio-button-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #333;
+}
+ 
+.radio-button-label input[type="radio"] {
+    margin-right: 10px;
+}
+ 
+ 
