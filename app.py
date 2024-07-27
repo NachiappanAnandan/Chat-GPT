@@ -109,7 +109,7 @@ def chat():
 
     firebase.put(f'/users/{user}', 'chatHistory', user_chat_history)
     previousresult = firebase.get(f'/users/{user}/chatHistory', None)
-    return render_template("chatbot.html", chat=previousresult)
+    return render_template("chatbot.html", chat=singleChatHistory)
 
 
 @app.route('/get_versions', methods=['GET'])
@@ -134,5 +134,12 @@ def get_versions():
     except requests.exceptions.JSONDecodeError as e:
         return jsonify({"error": "Invalid JSON response from Firebase Realtime Database"}), 400
 
+@app.route("/allResponse")
+def allResponse():
+    user = session["user"]
+    response = firebase.get(f'/users/{user}/chatHistory',None)
+    chat_history = response
+    return render_template("allResponse.html", chat=chat_history)
+    
 if __name__ == "__main__":
     app.run(debug=True)

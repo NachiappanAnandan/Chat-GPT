@@ -14,18 +14,22 @@
         <div class="prompt-result">
             <div>
                 <div class="heading_container">
-                    <h2>Response</h2>
+                    <h2>Previous Responses</h2>
                     <a class="back_to_home" href="{{ url_for('home') }}">
                         Back To Home
                     </a>
                 </div>
                 
                 <ul>
-                    {% block  chat %}
+                    {% for chat_entry in chat %}
                     <li class="single-container">
-                        <span class="response-timeStamp">{{ chat.response.timestamp }}:</span>
-                        <div class="chat-response chat">
-                            {{ chat.response.chat }}
+                        <div class="prompt">
+                           <strong> Chat : </strong></Chat><br/>
+                            {{ chat_entry.prompt.chat }}
+                        </div> 
+                        <div class="chat-response">
+                            <strong>Response:</strong> <br/>
+                            {{ chat_entry.response.chat }}
                         </div> 
                         <div class="button-container">
                             <button class="copy-btn"><i class="fas fa-copy"></i> Copy</button>
@@ -36,14 +40,8 @@
                             <a class="share-link email-share" href="#" target="_blank"><i class="fas fa-envelope"></i> Email</a>
                         </div>
                     </li>
-                    {% endblock %}
-                </ul>
+                    {% endfor %}
                 <a href="/">Back</a>
-                <a href="{{ url_for('allResponse') }}">
-                    <button class="previous-message">
-                        Previous Responses
-                    </button>
-                </a>
             </div>
         </main>
     </body>

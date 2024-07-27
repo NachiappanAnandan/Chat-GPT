@@ -18,10 +18,10 @@
             <div class="header">
                 <div class="tabs-container">
                     <div class="tab-element" id="tab1">
-                        Tab 1
+                        Custom Search
                     </div>
                     <div class="tab-element" id="tab2">
-                        Tab 2
+                        Available Options
                     </div>
                     <a class="history" href="{{url_for('history')}}" id="tab2">
                         Version Search
@@ -39,7 +39,7 @@
                     <input type="file" id="prompt-file1" name="prompt-file"><br><br>
                     <label for="options1">Convert to:</label>
                     <input type="text" id="options1" name="options"><br><br>
-                    <button type="submit">Send</button>
+                    <button type="button" class="submit-form">Send</button>
                 </form>
                 <form id="form2" class="hidden" method="post" action="{{url_for('chat')}}" enctype=multipart/form-data>
                     <label class="prompt-label" for="message2">PROMPT</label>
@@ -64,7 +64,7 @@
                     <label for="prompt-file2">Upload DOCX file:</label>
                     <input class="prompt-file-upload" id="prompt-file-upload2" type="file" name="prompt-file">
                     <div class="button-container">
-                        <button class="submit-prompt" type="submit">
+                        <button  class="submit-form submit-prompt" type="button" >
                             Submit
                         </button>
                     </div>
