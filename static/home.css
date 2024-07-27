@@ -78,6 +78,7 @@ main {
     border-radius: 8px;
     cursor: pointer;
     text-align: center;
+    margin-left: 20px;
 }
  
 .tab-element:hover {
