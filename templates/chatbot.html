@@ -47,30 +47,48 @@
             </div>
         </main>
     </body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script>
-         $('.copy-btn').on("click" , function() {
-        console.log("clciked....");
-        var chatContent = $(this).siblings('.chat').text();
-        var tempInput = $('<input>');
-        $('body').append(tempInput);
-        tempInput.val(chatContent).select();
-        document.execCommand('copy');
-        tempInput.remove();
-        alert('Chat copied to clipboard');
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script><script>
+        $('.copy-btn').on("click" , function() {
+            var chatContent = $(this).parent().siblings('.chat').text();
+            var tempTextarea = $('<textarea>');
+
+            $('body').append(tempTextarea);
+            tempTextarea.val(chatContent).select();
+            try {
+                var successful = document.execCommand('copy');
+                var msg = successful ? 'Chat copied to clipboard' : 'Copy failed';
+                alert(msg);
+            } catch (err) {
+                console.error('Unable to copy', err);
+            }
+
+            tempTextarea.remove();
     } )
 
     $('.export-btn').on('click', function() {
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
-                let chatBlock = $(this).closest('.chat-block');
-                let version = chatBlock.find('.version').text();
-                let date = chatBlock.find('.date').text();
+                var fontSize = 12;
+                doc.setFontSize(fontSize);
+                var pageHeight = doc.internal.pageSize.height - 20
+                let chatBlock = $(this).parent().parent();
+                let date = chatBlock.find('.response-timeStamp').text();
                 let chat = chatBlock.find('.chat').text();
-                doc.text(version, 10, 10);
-                doc.text(date, 10, 20);
-                doc.text(chat, 10, 30);
-                doc.save(`${version.replace(/\s+/g, '_')}.pdf`);
+                doc.text(date, 10, 10);
+                var startX = 10;
+                var startY = 20;
+                var lineHeight = 10;
+                var lines = doc.splitTextToSize(chat, 180);
+                lines.forEach(function(line) {
+                    if (startY + lineHeight > pageHeight) {
+                        doc.addPage();
+                        startY = 10; // Reset Y-coordinate for the new page
+                    }
+                    doc.text(line, startX, startY);
+                    startY += lineHeight;
+                });
+                doc.save(`response.pdf`);
             });
 
             // Toggle share options
@@ -83,7 +101,7 @@
             // Redirect to share links
             $(document).on('click', '.email-share', function(e) {
                 e.preventDefault();
-                var chatContent = $(this).closest('.chat-block').data('chat');
+                var chatContent = $(this).parent().siblings('.chat').text();
                 var emailURL = `mailto:?subject=Check this chat&body=${encodeURIComponent(chatContent)}`;
                 window.open(emailURL, '_blank');
             });
